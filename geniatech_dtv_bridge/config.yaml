@@ -1,0 +1,43 @@
+name: "Geniatech DTV Bridge"
+version: "0.2.0"
+slug: "geniatech_dtv_bridge"
+description: "HA local app wrapper for runawaysheep/Geniatech-DTV-Bridge"
+arch:
+  - aarch64
+  - amd64
+  - armv7
+  - armhf
+  - i386
+startup: services
+boot: auto
+init: false
+host_network: true
+ports:
+  30012/tcp: 30012
+ports_description:
+  30012/tcp: "HTTP stream server"
+map:
+  - type: homeassistant_config
+    read_only: false
+options:
+  ip: "192.168.0.252"
+  log: "debug"
+  fileLog: false
+  mode: "server"
+  port: 30012
+  profile: "fhd"
+  bitRate: 0
+  bandWidth: 6.0
+  mtype: "8vsb"
+  forceDeviceChange: true
+schema:
+  ip: "str"
+  log: "list(debug|info|error|notset)"
+  fileLog: "bool"
+  mode: "list(server|rec|rpc)"
+  port: "port"
+  profile: "list(fhd|hd|sd|pass)"
+  bitRate: "int"
+  bandWidth: "float"
+  mtype: "str"
+  forceDeviceChange: "bool"
