@@ -46,7 +46,7 @@ echo "Generated default.json:"
 cat default.json
 
 echo "=== RUN SCAN ==="
-python3 /opt/bridge/scan.py --ip "$(bashio::config 'ip')" || true
+python3 /opt/bridge/scan.py --ip 192.168.0.252 || true
 echo "=== SCAN END ==="
 
 exec python3 /opt/bridge/genidtv.py
