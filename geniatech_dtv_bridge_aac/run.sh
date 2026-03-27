@@ -15,14 +15,20 @@ FORCE_DEVICE_CHANGE=$(python3 -c 'import json; print(str(json.load(open("/data/o
 
 cd /opt/genidtv
 
-exec /opt/venv/bin/python /opt/genidtv/genidtv.py \
-  --ip "${INPUT_IP}" \
-  --log "${LOG_LEVEL}" \
-  --fileLog "${FILE_LOG}" \
-  --mode "${MODE}" \
-  --port "${PORT}" \
-  --profile "${PROFILE}" \
-  --bitRate "${BITRATE}" \
-  --bandWidth "${BANDWIDTH}" \
-  --mtype "${MTYPE}" \
-  --forceDeviceChange "${FORCE_DEVICE_CHANGE}"
+ARGS=(
+  -i "${INPUT_IP}"
+  -l "${LOG_LEVEL}"
+  -m "${MODE}"
+  --port "${PORT}"
+  --profile "${PROFILE}"
+  --bitRate "${BITRATE}"
+  --bandWidth "${BANDWIDTH}"
+  --mtype "${MTYPE}"
+  -F "${FORCE_DEVICE_CHANGE}"
+)
+
+if [ "${FILE_LOG}" = "true" ]; then
+  ARGS+=(--filelog)
+fi
+
+exec /opt/venv/bin/python /opt/genidtv/genidtv.py "${ARGS[@]}"
