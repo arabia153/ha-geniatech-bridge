@@ -1,38 +1,28 @@
 #!/usr/bin/with-contenv bash
-set -euo pipefail
 
-IP="$(bashio::config 'ip')"
-LOG_LEVEL="$(bashio::config 'log')"
-FILE_LOG="$(bashio::config 'fileLog')"
-MODE="$(bashio::config 'mode')"
-PORT="$(bashio::config 'port')"
-PROFILE="$(bashio::config 'profile')"
-BITRATE="$(bashio::config 'bitRate')"
-BANDWIDTH="$(bashio::config 'bandWidth')"
-MTYPE="$(bashio::config 'mtype')"
-FORCE_DEVICE_CHANGE="$(bashio::config 'forceDeviceChange')"
+set -e
 
-ARGS=(
-  "/opt/genidtv/genidtv.py"
-  "-i" "${IP}"
-  "-l" "${LOG_LEVEL}"
-  "-m" "${MODE}"
-  "--port" "${PORT}"
-  "--profile" "${PROFILE}"
-  "--bitRate" "${BITRATE}"
-  "--bandWidth" "${BANDWIDTH}"
-  "--mtype" "${MTYPE}"
-)
+INPUT_IP=$(python3 -c 'import json; print(json.load(open("/data/options.json"))["ip"])')
+LOG_LEVEL=$(python3 -c 'import json; print(json.load(open("/data/options.json"))["log"])')
+FILE_LOG=$(python3 -c 'import json; print(str(json.load(open("/data/options.json"))["fileLog"]).lower())')
+MODE=$(python3 -c 'import json; print(json.load(open("/data/options.json"))["mode"])')
+PORT=$(python3 -c 'import json; print(json.load(open("/data/options.json"))["port"])')
+PROFILE=$(python3 -c 'import json; print(json.load(open("/data/options.json"))["profile"])')
+BITRATE=$(python3 -c 'import json; print(json.load(open("/data/options.json"))["bitRate"])')
+BANDWIDTH=$(python3 -c 'import json; print(json.load(open("/data/options.json"))["bandWidth"])')
+MTYPE=$(python3 -c 'import json; print(json.load(open("/data/options.json"))["mtype"])')
+FORCE_DEVICE_CHANGE=$(python3 -c 'import json; print(str(json.load(open("/data/options.json"))["forceDeviceChange"]).lower())')
 
-if [[ "${FILE_LOG}" == "true" ]]; then
-  ARGS+=( "--filelog" )
-fi
+cd /opt/genidtv
 
-if [[ "${FORCE_DEVICE_CHANGE}" == "true" ]]; then
-  ARGS+=( "--forceDeviceChange" )
-fi
-
-echo "Starting Geniatech DTV Bridge AAC"
-echo "IP=${IP} PORT=${PORT} PROFILE=${PROFILE}"
-
-exec python3 "${ARGS[@]}"
+exec python3 /opt/genidtv/genidtv.py \
+  --ip "${INPUT_IP}" \
+  --log "${LOG_LEVEL}" \
+  --fileLog "${FILE_LOG}" \
+  --mode "${MODE}" \
+  --port "${PORT}" \
+  --profile "${PROFILE}" \
+  --bitRate "${BITRATE}" \
+  --bandWidth "${BANDWIDTH}" \
+  --mtype "${MTYPE}" \
+  --forceDeviceChange "${FORCE_DEVICE_CHANGE}"
