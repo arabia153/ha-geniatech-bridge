@@ -21,4 +21,5 @@ EOF
 echo "Generated default.json:"
 cat default.json
 
+python3 /opt/bridge/scan.py || true
 exec python3 /opt/bridge/genidtv.py
