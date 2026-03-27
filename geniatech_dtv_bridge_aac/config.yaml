@@ -1,0 +1,41 @@
+name: Geniatech DTV Bridge AAC
+version: "1.0.0"
+slug: geniatech_dtv_bridge_aac
+description: Geniatech SmartViewTV bridge with AAC profiles enabled
+url: https://github.com/YOUR_GITHUB_USERNAME/geniatech-dtv-bridge-aac-addon
+startup: services
+boot: auto
+host_network: true
+init: false
+arch:
+  - aarch64
+  - amd64
+  - armv7
+  - armhf
+  - i386
+ports:
+  30012/tcp: 30012
+ports_description:
+  30012/tcp: HTTP stream server
+options:
+  ip: 192.168.0.252
+  log: debug
+  fileLog: false
+  mode: server
+  port: 30012
+  profile: fhd_aac
+  bitRate: 0
+  bandWidth: 6
+  mtype: 8vsb
+  forceDeviceChange: true
+schema:
+  ip: str
+  log: list(debug|info|error|notset)?
+  fileLog: bool?
+  mode: list(server|rec|rpc)?
+  port: port?
+  profile: list(pass|fhd|hd|sd|fhd_aac|hd_aac|sd_aac)
+  bitRate: int?
+  bandWidth: int?
+  mtype: str?
+  forceDeviceChange: bool?
