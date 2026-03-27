@@ -2,7 +2,7 @@ name: Geniatech DTV Bridge AAC
 version: "1.0.0"
 slug: geniatech_dtv_bridge_aac
 description: Geniatech SmartViewTV bridge with AAC profiles enabled
-url: https://github.com/YOUR_GITHUB_USERNAME/geniatech-dtv-bridge-aac-addon
+url: https://github.com/arabia153/geniatech-dtv-bridge-aac-addon
 startup: services
 boot: auto
 host_network: true
