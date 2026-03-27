@@ -45,9 +45,4 @@ EOF
 echo "Generated default.json:"
 cat default.json
 
-echo "=== RUN SCAN ==="
-echo "RUN.SH VERSION 2"
-python3 /opt/bridge/scan.py --ip 192.168.0.252 || true
-echo "=== SCAN END ==="
-
 exec python3 /opt/bridge/genidtv.py
