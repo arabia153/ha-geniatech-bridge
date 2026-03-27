@@ -12,9 +12,11 @@ RUN apk add --no-cache \
 # Pull upstream bridge source at build time.
 RUN curl -L https://raw.githubusercontent.com/runawaysheep/Geniatech-DTV-Bridge/main/genidtv.py -o /opt/genidtv/genidtv.py \
  && curl -L https://raw.githubusercontent.com/runawaysheep/Geniatech-DTV-Bridge/main/scan.py -o /opt/genidtv/scan.py \
- && curl -L https://raw.githubusercontent.com/runawaysheep/Geniatech-DTV-Bridge/main/requirements.txt -o /opt/genidtv/requirements.txt \
  && python3 -m venv /opt/venv \
- && /opt/venv/bin/pip install --no-cache-dir -r /opt/genidtv/requirements.txt
+ && /opt/venv/bin/pip install --no-cache-dir \
+      "requests==2.28.2" \
+      "urllib3==1.26.18" \
+      "websocket-client==1.6.1"
  
 COPY run.sh /run.sh
 RUN chmod a+x /run.sh
