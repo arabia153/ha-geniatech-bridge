@@ -11,7 +11,7 @@ PROFILE=$(python3 -c 'import json; print(json.load(open("/data/options.json"))["
 BITRATE=$(python3 -c 'import json; print(json.load(open("/data/options.json"))["bitRate"])')
 BANDWIDTH=$(python3 -c 'import json; print(json.load(open("/data/options.json"))["bandWidth"])')
 MTYPE=$(python3 -c 'import json; print(json.load(open("/data/options.json"))["mtype"])')
-FORCE_DEVICE_CHANGE=$(python3 -c 'import json; print(str(json.load(open("/data/options.json"))["forceDeviceChange"]).lower())')
+FORCE_DEVICE_CHANGE=$(python3 -c 'import json; print(1 if json.load(open("/data/options.json"))["forceDeviceChange"] else 0)')
 
 cd /opt/genidtv
 
