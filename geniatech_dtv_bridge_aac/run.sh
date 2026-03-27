@@ -15,7 +15,7 @@ FORCE_DEVICE_CHANGE=$(python3 -c 'import json; print(str(json.load(open("/data/o
 
 cd /opt/genidtv
 
-exec python3 /opt/genidtv/genidtv.py \
+exec /opt/venv/bin/python /opt/genidtv/genidtv.py \
   --ip "${INPUT_IP}" \
   --log "${LOG_LEVEL}" \
   --fileLog "${FILE_LOG}" \
