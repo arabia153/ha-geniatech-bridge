@@ -11,3 +11,6 @@ arch:
   - armv7
   - armhf
   - i386
+map:
+  - type: share
+    read_only: false
