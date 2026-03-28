@@ -32,9 +32,17 @@ def probe_stream(url, timeout_seconds):
             timeout=timeout_seconds,
             check=False,
         )
-    except subprocess.TimeoutExpired:
-        return False, "timeout"
-
+    except subprocess.TimeoutExpired as e:
+    partial = ""
+    if e.stdout:
+        partial += e.stdout
+    if e.stderr:
+        partial += "\n" + e.stderr
+    partial = partial.strip()
+    if partial:
+        return False, f"timeout: {partial[:300]}"
+    return False, "timeout"
+    
     out = (proc.stdout or "") + "\n" + (proc.stderr or "")
     try:
         data = json.loads(proc.stdout or "{}")
