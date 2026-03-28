@@ -32,7 +32,8 @@ def probe_stream(url, timeout_seconds):
             timeout=timeout_seconds,
             check=False,
         )
-   except subprocess.TimeoutExpired as e:
+   
+except subprocess.TimeoutExpired as e:
     partial = ""
     if e.stdout:
         partial += e.stdout
