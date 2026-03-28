@@ -13,3 +13,9 @@ arch:
   - armv7
   - armhf
   - i386
+
+options:
+  ip: 192.168.0.252
+
+schema:
+  ip: str
