@@ -24,6 +24,7 @@ def probe_stream(url, timeout_seconds):
         "-of", "json",
         "-i", url,
     ]
+
     try:
         proc = subprocess.run(
             cmd,
@@ -32,19 +33,19 @@ def probe_stream(url, timeout_seconds):
             timeout=timeout_seconds,
             check=False,
         )
-   
-except subprocess.TimeoutExpired as e:
-    partial = ""
-    if e.stdout:
-        partial += e.stdout
-    if e.stderr:
-        partial += "\n" + e.stderr
-    partial = partial.strip()
-    if partial:
-        return False, f"timeout: {partial[:300]}"
-    return False, "timeout"
-    
+    except subprocess.TimeoutExpired as e:
+        partial = ""
+        if e.stdout:
+            partial += e.stdout
+        if e.stderr:
+            partial += "\n" + e.stderr
+        partial = partial.strip()
+        if partial:
+            return False, f"timeout: {partial[:300]}"
+        return False, "timeout"
+
     out = (proc.stdout or "") + "\n" + (proc.stderr or "")
+
     try:
         data = json.loads(proc.stdout or "{}")
     except json.JSONDecodeError:
@@ -59,11 +60,7 @@ except subprocess.TimeoutExpired as e:
     if has_video:
         return True, "video_only"
 
-    if proc.returncode != 0:
-        return False, out.strip()[:400]
-
     return False, "no_streams"
-
 
 def rank(detail):
     if detail == "video+audio":
