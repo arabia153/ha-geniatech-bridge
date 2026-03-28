@@ -2,9 +2,9 @@ name: Q41 Channel Scanner
 version: "1.0.0"
 slug: q41_channel_scanner
 description: Scan channels and generate M3U
-url: https://github.com/arabia153/geniatech-dtv-bridge
-startup: services
-boot: auto
+url: https://github.com/arabia153/ha-geniatech-bridge
+startup: once
+boot: manual
 host_network: true
 init: false
 arch:
@@ -15,7 +15,77 @@ arch:
   - i386
 
 options:
-  ip: 192.168.0.252
+  bridge_host: 192.168.0.252
+  bridge_port: 30012
+  frequencies:
+    - 473.0
+    - 479.0
+    - 485.0
+    - 491.0
+    - 497.0
+    - 503.0
+    - 509.0
+    - 515.0
+    - 521.0
+    - 527.0
+    - 533.0
+    - 539.0
+    - 545.0
+    - 551.0
+    - 557.0
+    - 563.0
+    - 569.0
+    - 575.0
+    - 581.0
+    - 587.0
+    - 593.0
+    - 599.0
+    - 605.0
+    - 611.0
+    - 617.0
+    - 623.0
+    - 629.0
+    - 635.0
+    - 641.0
+    - 647.0
+    - 653.0
+    - 659.0
+    - 665.0
+    - 671.0
+    - 677.0
+    - 683.0
+    - 689.0
+    - 695.0
+    - 701.0
+    - 707.0
+    - 713.0
+  service_ids:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+    - 8
+  pid_candidates:
+    - none
+    - all
+  channel_hints: {}
+  profile: pass
+  timeout_seconds: 6
+  output_m3u: /share/genidtv_channels.m3u
 
 schema:
-  ip: str
+  bridge_host: str
+  bridge_port: int
+  frequencies:
+    - float
+  service_ids:
+    - int
+  pid_candidates:
+    - str
+  channel_hints: dict
+  profile: str
+  timeout_seconds: int
+  output_m3u: str
