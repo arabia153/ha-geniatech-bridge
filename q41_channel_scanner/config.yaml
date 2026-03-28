@@ -29,7 +29,7 @@ options:
     - none
     - all
   profile: pass
-  timeout_seconds: 6
+  timeout_seconds: 10
   output_m3u: /share/genidtv_channels.m3u
 
 schema:
