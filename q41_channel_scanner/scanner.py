@@ -35,10 +35,14 @@ def probe_stream(url, timeout_seconds):
         )
     except subprocess.TimeoutExpired as e:
         partial = ""
+
         if e.stdout:
-            partial += e.stdout
+            partial += e.stdout.decode("utf-8", errors="ignore") if isinstance(e.stdout, bytes) else e.stdout
+
         if e.stderr:
-            partial += "\n" + e.stderr
+            err = e.stderr.decode("utf-8", errors="ignore") if isinstance(e.stderr, bytes) else e.stderr
+            partial += "\n" + err
+
         partial = partial.strip()
         if partial:
             return False, f"timeout: {partial[:300]}"
