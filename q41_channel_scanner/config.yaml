@@ -23,8 +23,9 @@ options:
     - 1
   pid_candidates:
     - none
+    - all
   profile: pass
-  timeout_seconds: 10
+  timeout_seconds: 20
   output_m3u: /share/genidtv_channels.m3u
 
 schema:
