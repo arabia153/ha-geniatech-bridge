@@ -2,7 +2,7 @@ name: "Q41 Channel Scanner"
 version: "1.0.0"
 slug: "q41_channel_scanner"
 description: "Scan Geniatech/Q41 bridge URLs and generate an M3U file with working channels"
-url: "https://github.com/YOUR_GITHUB_USERNAME/q41-channel-scanner"
+url: "https://github.com/arabia153/q41-channel-scanner"
 startup: "manual"
 boot: "manual"
 host_network: true
