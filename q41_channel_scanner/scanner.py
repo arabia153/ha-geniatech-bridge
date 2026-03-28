@@ -44,6 +44,8 @@ def probe_stream(url, timeout_seconds):
             partial += "\n" + err
 
         partial = partial.strip()
+        if partial.strip().startswith("{"):
+            return False, "no_streams"
         if partial:
             return False, f"timeout: {partial[:300]}"
         return False, "timeout"
