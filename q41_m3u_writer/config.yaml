@@ -1,0 +1,13 @@
+name: Q41 M3U Writer
+version: "1.0.0"
+slug: q41_m3u_writer
+description: Write fixed Q41 M3U playlist
+startup: once
+boot: auto
+init: false
+arch:
+  - aarch64
+  - amd64
+  - armv7
+  - armhf
+  - i386
