@@ -1,11 +1,15 @@
-name: "Q41 Channel Scanner"
+name: Q41 Channel Scanner
 version: "1.0.0"
-slug: "q41_channel_scanner"
-description: "Scan channels and generate M3U"
-startup: manual
-boot: manual
+slug: q41_channel_scanner
+description: Scan channels and generate M3U
+url: https://github.com/arabia153/geniatech-dtv-bridge
+startup: services
+boot: auto
+host_network: true
 init: false
 arch:
   - aarch64
   - amd64
   - armv7
+  - armhf
+  - i386
