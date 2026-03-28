@@ -8,7 +8,7 @@ def load_options():
         return json.load(f)
 
 def build_url(host, port, freq, service_id, pids, profile):
-    return f"rtsp://{host}:{port}/stream?freq={freq:.1f}&serviceId={service_id}&pids={pids}&profile={profile}"
+    return f"rtsp://{host}:{port}/stream={service_id}?pids={pids}"
     
 def probe_stream(url, timeout_seconds):
     cmd = [
