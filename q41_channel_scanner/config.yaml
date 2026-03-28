@@ -15,7 +15,7 @@ arch:
   - i386
 
 options:
-  bridge_host: 192.168.0.252
+  bridge_host: 192.168.0.28
   bridge_port: 30012
   frequencies:
     - 473.0
