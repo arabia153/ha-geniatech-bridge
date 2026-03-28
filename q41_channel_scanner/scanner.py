@@ -3,13 +3,16 @@ import json
 import subprocess
 from pathlib import Path
 
+
 def load_options():
     with open("/data/options.json", "r", encoding="utf-8") as f:
         return json.load(f)
 
-def build_url(host, port, freq, service_id, pids, profile):
+
+def build_url(host, port, service_id, pids):
     return f"rtsp://{host}:{port}/stream={service_id}?pids={pids}"
-    
+
+
 def probe_stream(url, timeout_seconds):
     cmd = [
         "ffprobe",
@@ -50,6 +53,7 @@ def probe_stream(url, timeout_seconds):
         return True, "video_only"
     return False, "no_streams"
 
+
 def rank(detail):
     if detail == "video+audio":
         return 3
@@ -57,50 +61,45 @@ def rank(detail):
         return 1
     return 0
 
+
 def main():
     opts = load_options()
     host = opts["bridge_host"]
     port = int(opts["bridge_port"])
-    freqs = [float(x) for x in opts["frequencies"]]
     service_ids = [int(x) for x in opts["service_ids"]]
     pid_candidates = list(opts["pid_candidates"])
-    channel_hints = dict(opts.get("channel_hints", {}))
-    profile = opts.get("profile", "pass")
-    timeout_seconds = int(opts.get("timeout_seconds", 6))
+    timeout_seconds = int(opts.get("timeout_seconds", 10))
     output_m3u = Path(opts.get("output_m3u", "/share/genidtv_channels.m3u"))
 
-    print(f"[Q41 Scanner] bridge={host}:{port} profile={profile}")
+    print(f"[Q41 Scanner] bridge={host}:{port}")
     print(f"[Q41 Scanner] output={output_m3u}")
 
     results = []
 
-    for freq in freqs:
-        for service_id in service_ids:
-            key = f"{freq:.1f}:{service_id}"
-            channel_name = channel_hints.get(key, f"CH_{freq:.1f}_{service_id}")
-            best = None
-            best_rank = -1
+    for service_id in service_ids:
+        channel_name = f"CH_{service_id}"
+        best = None
+        best_rank = -1
 
-            for pids in pid_candidates:
-                url = build_url(host, port, freq, service_id, pids, profile)
-                ok, detail = probe_stream(url, timeout_seconds)
-                print(f"[Q41 Scanner] test channel={channel_name} freq={freq:.1f} sid={service_id} pids={pids} -> {detail}")
+        for pids in pid_candidates:
+            url = build_url(host, port, service_id, pids)
+            ok, detail = probe_stream(url, timeout_seconds)
+            print(f"[Q41 Scanner] test channel={channel_name} sid={service_id} pids={pids} -> {detail}")
 
-                if ok and rank(detail) > best_rank:
-                    best = {
-                        "name": channel_name,
-                        "freq": freq,
-                        "service_id": service_id,
-                        "pids": pids,
-                        "url": url,
-                        "detail": detail,
-                    }
-                    best_rank = rank(detail)
-                    if best_rank >= 3:
-                        break
+            if ok and rank(detail) > best_rank:
+                best = {
+                    "name": channel_name,
+                    "service_id": service_id,
+                    "pids": pids,
+                    "url": url,
+                    "detail": detail,
+                }
+                best_rank = rank(detail)
+                if best_rank >= 3:
+                    break
 
-            if best is not None:
-                results.append(best)
+        if best is not None:
+            results.append(best)
 
     deduped = {}
     for item in results:
@@ -126,6 +125,7 @@ def main():
             print(f"[Q41 Scanner] {name}: pids={item['pids']} ({item['detail']})")
     else:
         print("[Q41 Scanner] no working channels found")
+
 
 if __name__ == "__main__":
     main()
