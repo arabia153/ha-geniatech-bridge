@@ -1,5 +1,5 @@
 name: Q41 Channel Scanner
-version: "1.0.0"
+version: "1.0.1"
 slug: q41_channel_scanner
 description: Generate fixed Q41 M3U playlist
 startup: once
