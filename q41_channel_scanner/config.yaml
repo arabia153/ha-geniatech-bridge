@@ -1,61 +1,11 @@
 name: "Q41 Channel Scanner"
 version: "1.0.0"
 slug: "q41_channel_scanner"
-description: "Scan Geniatech/Q41 bridge URLs and generate an M3U file with working channels"
-url: "https://github.com/arabia153/q41-channel-scanner"
-startup: "manual"
-boot: "manual"
-host_network: true
+description: "Scan channels and generate M3U"
+startup: manual
+boot: manual
+init: false
 arch:
-  - amd64
   - aarch64
+  - amd64
   - armv7
-  - armhf
-  - i386
-map:
-  - share:rw
-options:
-  bridge_host: "192.168.0.28"
-  bridge_port: 30012
-  frequencies:
-    - 123.0
-    - 129.0
-    - 135.0
-    - 141.0
-    - 147.0
-    - 153.0
-  service_ids:
-    - 1
-    - 2
-    - 3
-  pid_candidates:
-    - "16,17,17,20"
-    - "16,17,17,21"
-    - "32,33,33,36"
-    - "16,17,736,20"
-    - "32,33,736,36"
-  channel_hints:
-    "123.0:1": "MBC"
-    "129.0:2": "KBS1"
-    "135.0:1": "SBS"
-    "141.0:2": "KBS2"
-    "147.0:1": "EBS1"
-    "147.0:2": "EBS2"
-    "153.0:1": "OBS"
-  profile: "pass"
-  timeout_seconds: 6
-  output_m3u: "/share/genidtv_channels.m3u"
-schema:
-  bridge_host: str
-  bridge_port: int
-  frequencies:
-    - float
-  service_ids:
-    - int
-  pid_candidates:
-    - str
-  channel_hints:
-    str?: str
-  profile: str
-  timeout_seconds: int
-  output_m3u: str
