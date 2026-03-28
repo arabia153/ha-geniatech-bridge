@@ -17,10 +17,11 @@ def probe_stream(url, timeout_seconds):
     cmd = [
         "ffprobe",
         "-v", "error",
-        "-show_streams",
+        "-rw_timeout", "5000000",
+        "-analyzeduration", "2M",
+        "-probesize", "2M",
+        "-show_entries", "stream=codec_type",
         "-of", "json",
-        "-analyzeduration", "10M",
-        "-probesize", "10M",
         "-i", url,
     ]
     try:
@@ -35,9 +36,6 @@ def probe_stream(url, timeout_seconds):
         return False, "timeout"
 
     out = (proc.stdout or "") + "\n" + (proc.stderr or "")
-    if proc.returncode != 0 and "streams" not in out:
-        return False, out.strip()[:400]
-
     try:
         data = json.loads(proc.stdout or "{}")
     except json.JSONDecodeError:
@@ -51,6 +49,10 @@ def probe_stream(url, timeout_seconds):
         return True, "video+audio"
     if has_video:
         return True, "video_only"
+
+    if proc.returncode != 0:
+        return False, out.strip()[:400]
+
     return False, "no_streams"
 
 
