@@ -17,24 +17,25 @@ arch:
 options:
   bridge_host: 192.168.0.28
   bridge_port: 30012
+  frequencies:
+    - 485.0
   service_ids:
     - 1
-    - 2
-    - 3
-    - 4
-    - 5
   pid_candidates:
     - none
-    - all
+  profile: pass
   timeout_seconds: 10
   output_m3u: /share/genidtv_channels.m3u
 
 schema:
   bridge_host: str
   bridge_port: int
+  frequencies:
+    - float
   service_ids:
     - int
   pid_candidates:
     - str
+  profile: str
   timeout_seconds: int
   output_m3u: str
