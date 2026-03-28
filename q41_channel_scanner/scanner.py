@@ -31,10 +31,7 @@ http://192.168.0.28:30012?freq=153.0&serviceId=1&pids=32,33,33,36&profile=pass
 """
 
     OUTPUT.write_text(content, encoding="utf-8")
-
-    print("[Q41 M3U] file created:")
-    print(OUTPUT)
-
+    print(f"[Q41 M3U] wrote {OUTPUT}")
 
 if __name__ == "__main__":
     main()
