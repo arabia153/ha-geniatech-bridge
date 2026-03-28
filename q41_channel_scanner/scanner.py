@@ -29,7 +29,6 @@ http://192.168.0.28:30012?freq=141.0&serviceId=2&pids=32,33,33,36&profile=pass
 #EXTINF:-1,OBS
 http://192.168.0.28:30012?freq=153.0&serviceId=1&pids=32,33,33,36&profile=pass
 """
-
     OUTPUT.write_text(content, encoding="utf-8")
     print(f"[Q41 M3U] wrote {OUTPUT}")
 
